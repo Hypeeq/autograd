@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 const Signin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const token = Cookies.get("token");
 
   const navigate = useNavigate();
 
@@ -33,12 +36,6 @@ const Signin = () => {
         }
       )
       .then((response) => {
-        localStorage.setItem("token", JSON.stringify(response.data.token));
-        localStorage.setItem(
-          "username",
-          JSON.stringify(response.data.user.username)
-        );
-        localStorage.setItem("userId", JSON.stringify(response.data.user._id));
         navigate("/home");
       })
       .catch((error) => {
