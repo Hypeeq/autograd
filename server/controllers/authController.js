@@ -8,7 +8,7 @@ const User = require("../models/User");
 const saltRounds = 10;
 
 const signup = async (req, res) => {
-  const { email, password, fullName, address, phoneNumber, gender } = req.body;
+  const { email, password, fullName, phoneNumber } = req.body;
   try {
     const existingUser = await User.findOne({ email });
     if (existingUser) {
@@ -21,9 +21,7 @@ const signup = async (req, res) => {
       email,
       password: hashedPassword,
       fullName,
-      address,
       phoneNumber,
-      gender,
     });
 
     await newUser.save();
